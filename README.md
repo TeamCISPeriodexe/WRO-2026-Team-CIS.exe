@@ -86,29 +86,39 @@ To execute accurate line-tracking and obstacle avoidance, sensors are positioned
 
 
 
-4. Mechanical Design
-4.1 Steering & Drive System
-	Steering Mechanism: Ackermann Geometry เพื่อลดการไถลของล้อขณะเลี้ยวโค้ง
-	Drive Train: มอเตอร์ขับเคลื่อนต่อตรงกับเฟืองล้อหลัง
+### 4. Mechanical Design
+
+#### 4.1 Steering & Drive System
+
+##### 1. Steering Mechanism (Ackermann Steering Geometry)
+* **Design Principle:** Implements Ackermann Steering Geometry, ensuring the inner steering wheel turns at a sharper angle than the outer wheel during turns around a common center point.
+* **Purpose & Advantage:** Minimizes tire scrub and side-slippage on the track surface, maintaining vehicle stability, traction, and high-speed momentum throughout sharp cornering.
+* **Linkage Integration:** Controlled by a dedicated LEGO Medium Angular Motor (Port B) via rigid steering linkages, delivering precise angular displacement and reliable re-centering.
+
+##### 2. Drive Train Architecture
+* **Drive Configuration:** Rear-Wheel Drive (RWD) layout powered by a LEGO Medium Angular Motor (Port D).
+* **Power Transmission:** Direct gear transmission connecting the drive motor directly to the rear drive axle, maximizing torque transfer efficiency and eliminating belt slip.
+* **Tires & Traction:** Equipped with high-friction rubber tires to ensure optimal ground adhesion during speed shifts and dynamic obstacle avoidance.
 4.2 Vehicle Photos (6-Axis Views)
-(ใส่รูปถ่ายตัวรถในมุมต่างๆ ตามตำแหน่งด้านล่าง)
-	[Front View] — รูปถ่ายด้านหน้า
+	[Front View] 
 <img width="1536" height="2048" alt="image" src="https://github.com/user-attachments/assets/d59f58d2-8e83-41b2-ae9d-0a88f793d09e" />
 
-	[Back View] — รูปถ่ายด้านหลัง
+	[Back View]
 <img width="1536" height="2048" alt="image" src="https://github.com/user-attachments/assets/d3f52923-5123-4cff-af48-4de36add21e4" />
 
-	[Left View] — รูปถ่ายด้านซ้าย
+	[Left View] 
 <img width="2048" height="1536" alt="image" src="https://github.com/user-attachments/assets/8e3eb4c2-5f66-4709-9eac-5c9e77db2ac1" />
 
-	[Right View] — รูปถ่ายด้านขวา
+	[Right View]
 <img width="2048" height="1536" alt="image" src="https://github.com/user-attachments/assets/bee6e1d1-aaa5-4cb8-8be9-263e0ac518bd" />
 
-	[Top View] — รูปถ่ายด้านบน (เห็นการจัดวางสายไฟ)
+	[Top View]
 <img width="1536" height="2048" alt="image" src="https://github.com/user-attachments/assets/3ddca024-9a70-4c44-98d2-fabb07cd4666" />
 
-	[Bottom View] — รูปถ่ายด้านล่าง (เห็นตำแหน่ง Color Sensor)
+	[Bottom View]
 <img width="1536" height="2048" alt="image" src="https://github.com/user-attachments/assets/0b0ee73c-b49a-4667-bd77-9e77fc4c64da" />
+
+
 
 
 5. Electronics & Sensors
@@ -219,6 +229,7 @@ Key Features Used on the Field:
 Absolute Encoder Positioning: Allows precise steering angle calibration for straight driving and sharp cornering (Center = 2, Max Left = 337, Max Right = 28).
 
 State-Locked Steering Control: Uses efficient positioning functions (center_safe(), left_max(), right_max()) to eliminate redundant motor commands and minimize system response time.
+
 
 
 7. Computer Vision & AI Integration
