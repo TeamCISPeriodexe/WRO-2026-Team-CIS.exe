@@ -301,9 +301,8 @@ $$u(t) = K_p \cdot e(t)$$
 #### 3. Actuator Command Mapping
 The calculated correction angle is added directly to the calibrated zero-steering position (Center = 2°), constrained within physical hardware limits:
 
-$$\text{Steering Angle} = \text{Clamp}\left(\text{CENTER\_POS} + u(t), \text{RIGHT\_MAX}, \text{LEFT\_MAX}\right)$$
-
-This proportional control loop prevents heading drift and maintains a straight trajectory without vehicle oscillation.
+```text
+Steering Angle = Clamp(CENTER_POS + u(t), RIGHT_MAX, LEFT_MAX)
 ---
 
 ### 8.4 Non-Blocking HuskyLens Serial Communication
