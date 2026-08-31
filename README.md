@@ -1,3 +1,6 @@
+<img width="442" height="413" alt="Screenshot 2026-08-29 211434" src="https://github.com/user-attachments/assets/29ebd366-515e-4320-b424-77abf3147128" />
+
+
 # 🏎️ WRO Future Engineers 2026 - Engineering Journal
 
 | Field | Details |
