@@ -236,6 +236,36 @@ The robot system integrates the operation of the main processing unit, positiona
   * **Absolute Encoder Positioning:** Allows precise steering angle calibration for straight driving and sharp cornering (Center = 2, Max Left = 337, Max Right = 28).
   * **State-Locked Steering Control:** Uses efficient positioning functions (`center_safe()`, `left_max()`, `right_max()`) to eliminate redundant motor commands and minimize system response time.
 
+### 6.6 DFRobot HuskyLens AI Camera (Port E)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/269236ae-72ad-497d-a03b-b979e053245e" width="500" alt="DFRobot HuskyLens AI Camera">
+</p>
+
+* **Device Name:** DFRobot HuskyLens AI Vision Camera
+* **Role and Function:** Serves as the primary computer vision system to detect and classify traffic obstacles (pillars) along the racetrack. It processes image frames on onboard AI hardware and sends target information to the main hub via UART.
+* **Key Features Used on the Field:**
+  * **Onboard AI Color Recognition:** Runs high-speed color detection algorithms directly on the camera hardware without burdening the SPIKE Prime Hub's main CPU.
+  * **UART Serial Communication:** Transmits binary data packets containing detected Color IDs (ID 1: Green, ID 2: Red) and bounding box parameters to Port E at 115,200 baud.
+  * **Real-time Obstacle Classification:** Instantly informs the Finite State Machine (FSM) to decide whether to execute a Left Bypass (Green) or Right Bypass (Red) steering maneuver.
+
+---
+
+### 6.7 LEGO SPIKE Prime Wheels and Tires
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a18fa56b-431f-4f51-ba10-7caa9b33bbbc" width="500" alt="LEGO SPIKE Prime Wheels and Tires">
+</p>
+
+* **Device Name:** LEGO SPIKE Prime Wheels (Cyan Rubber Tires & Black Rims)
+* **Role and Function:** Provides mechanical traction and mobility for the vehicle. The rear wheels transmit driving torque from the motor to propel the robot forward, while the front wheels pivot on the steering assembly to change directions.
+* **Key Features Used on the Field:**
+  * **High-Traction Rubber Surface:** Delivers optimal surface grip on the track mat, preventing tire slippage during sudden acceleration, dynamic braking, and sharp cornering maneuvers.
+  * **Low-Scrub Front Wheels:** Mounted on Ackermann steering knuckles to allow smooth angular pivoting with minimal lateral friction during turns.
+  * **Direct Axle Mounting:** Connects securely to the rear axle drive train to deliver 1:1 torque transmission without power loss.
+
+
+
 ---
 
 ## 7. Computer Vision & AI Integration
