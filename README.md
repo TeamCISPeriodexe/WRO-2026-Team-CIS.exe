@@ -105,22 +105,22 @@ To execute accurate line-tracking and obstacle avoidance, sensors are positioned
 ### 4.2 Vehicle Photos (6-Axis Views)
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/d59f58d2-8e83-41b2-ae9d-0a88f793d09e" width="45%" alt="Front View" />
-  <img src="https://github.com/user-attachments/assets/d3f52923-5123-4cff-af48-4de36add21e4" width="45%" alt="Back View" />
+  <img src="./other/img/Front%20View.jpg" width="45%" alt="Front View" />
+  <img src="./other/img/Back%20View.jpg" width="45%" alt="Back View" />
   <br>
   <sub><b>Figure 4.1:</b> Front View (Left) and Back View (Right)</sub>
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/8e3eb4c2-5f66-4709-9eac-5c9e77db2ac1" width="45%" alt="Left View" />
-  <img src="https://github.com/user-attachments/assets/bee6e1d1-aaa5-4cb8-8be9-263e0ac518bd" width="45%" alt="Right View" />
+  <img src="./other/img/Left%20Side%20View.jpg" width="45%" alt="Left Side View" />
+  <img src="./other/img/Right%20Side%20View.jpg" width="45%" alt="Right Side View" />
   <br>
   <sub><b>Figure 4.2:</b> Left Side View (Left) and Right Side View (Right)</sub>
 </p>
 
 <p align="center">
-  <img src="URL_ใหม่ของรูป_Top_View" width="45%" alt="Top View" />
-  <img src="URL_ใหม่ของรูป_Bottom_View" width="45%" alt="Bottom View" />
+  <img src="./other/img/Top%20View.jpg" width="45%" alt="Top View" />
+  <img src="./other/img/Bottom%20View.jpg" width="45%" alt="Bottom View" />
   <br>
   <sub><b>Figure 4.3:</b> Top View (Left) and Bottom View (Right)</sub>
 </p>
@@ -372,3 +372,39 @@ def update_vehicle_motion(current_state, gyro_error):
     elif current_state == STATE_PARK:
         drive_motor.stop_hard()
         steering_motor.go_to_position(CENTER_POS)
+
+---
+
+
+## 9. Electrical & Power Management Architecture
+
+### 9.1 Power Distribution & Signal Schematic
+
+<p align="center">
+  <img src="./src/Electrical_Block_Diagram/Electrical_Block_Diagram.jpg" width="85%" alt="Electrical Block Diagram" />
+  <br>
+  <sub><b>Figure 9.1:</b> Electrical Block Diagram, Power Distribution, and Port Allocation Schematic</sub>
+</p>
+### 9.2 Wiring & System Power Breakdown
+
+The vehicle operates on a single centralized power source managed by the SPIKE Prime Hub. Power line distribution and data/signal channels are categorized as follows:
+
+* 🔴 **Red Line (Main Power Supply):** 7.3V regulated power rail supplied from the internal Li-ion battery to the SPIKE Prime Hub.
+* 🔵 **Cyan Line (Data & Signal Line):** Bus communication lines providing power delivery and sensor data feedback across Hub ports.
+
+| Connected Device | Port | Voltage ($V$) | Nominal Current | Peak Current | Communication / Power Protocol |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **SPIKE Prime Hub** | Internal | 7.3V | ~100 mA (Idle) | — | Main Controller & Power Bus |
+| **Color Sensor** | Port A | 5.0V | ~15 mA | — | Analog/Digital Sensor Data Bus |
+| **Drive Angular Motor** | Port B | 7.2V | 300 mA | 1.2 A | Bidirectional PWM & Quadrature Encoder |
+| **Distance Sensor** | Port C | 5.0V | ~30 mA | — | Ultrasonic Signal Data Bus |
+| **Steering Angular Motor** | Port D | 7.2V | 300 mA | 1.2 A | Bidirectional PWM & Quadrature Encoder |
+| **HuskyLens AI Camera** | Port E | 5.0V | 320 mA | 400 mA | UART / I2C Serial Data (Powered via Port E) |
+| **Reserved / Unused** | Port F | — | 0 mA | 0 mA | Available for Expansion |
+
+### 9.3 Power Consumption & Battery Management
+* **Total Battery Capacity:** 7.3V / 2100 mAh Rechargeable Li-ion Battery.
+* **Maximum Peak Current Draw:** ~3.0 A (under simultaneous peak steering, maximum drive acceleration, and active AI vision processing).
+* **Battery Safety & Stability:** Power delivery is regulated internally by the SPIKE Hub to prevent voltage sag from degrading sensor reading accuracy or causing micro-controller reset loops during high-torque motor maneuvers.
+
+---
