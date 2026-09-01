@@ -376,11 +376,4 @@ def update_vehicle_motion(current_state, gyro_error):
 ---
 
 
-
-<p align="center">
-  <img src="src/Electrical_Block_Diagram/Electrical_Block_Diagram.jpg" width="85%" alt="Electrical Block Diagram" />
-  <br>
-  <sub><b>Figure 9.1:</b> Electrical Block Diagram, Power Distribution, and Port Allocation Schematic</sub>
-</p>
-
-
+<img width="1251" height="916" alt="a6e98c11-1b66-428e-8e16-b7cbc488f379" src="https://github.com/user-attachments/assets/bcc581e4-676a-4ec0-85fa-3febdd252102" />
