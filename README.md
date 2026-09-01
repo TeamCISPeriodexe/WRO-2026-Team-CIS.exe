@@ -1,7 +1,7 @@
 <img width="442" height="413" alt="Screenshot 2026-08-29 211434" src="https://github.com/user-attachments/assets/29ebd366-515e-4320-b424-77abf3147128" />
 
 
-# 🏎️ WRO Future Engineers 2026 - Engineering Journal
+# 🏎️ WRO Future Engineers 2026
 
 | Field | Details |
 | :--- | :--- |
@@ -380,17 +380,27 @@ def update_vehicle_motion(current_state, gyro_error):
 
 ### 9.1 Power Distribution & Signal Schematic
 
-<img width="1251" height="916" alt="Electrical_Block_Diagram" src="https://github.com/user-attachments/assets/fcbe60fd-92b6-4a8d-8766-41902d9d7205" />
 
+
+
+## 9. Electrical & Power Management Architecture
+
+### 9.1 Power Distribution & Signal Schematic
+
+<p align="center">
+  <img src="src/Electrical_Block_Diagram/Electrical_Block_Diagram.jpg" width="85%" alt="Electrical Block Diagram" />
+  <br>
+  <sub><b>Figure 9.1:</b> Electrical Block Diagram, Power Distribution, and Port Allocation Schematic</sub>
+</p>
 
 ### 9.2 Wiring & System Power Breakdown
 
-The vehicle operates on a single centralized power source managed by the SPIKE Prime Hub. Power line distribution and data/signal channels are categorized as follows:
+The vehicle operates on a single centralized power source managed by the SPIKE Prime Hub. Power distribution and signal communication lines are categorized as follows:
 
-* 🔴 **Red Line (Main Power Supply):** 7.3V regulated power rail supplied from the internal Li-ion battery to the SPIKE Prime Hub.
-* 🔵 **Cyan Line (Data & Signal Line):** Bus communication lines providing power delivery and sensor data feedback across Hub ports.
+* 🔴 **Red Line (Main Power Supply):** 7.3V regulated power rail supplied directly from the internal Li-ion battery to the SPIKE Prime Hub.
+* 🔵 **Cyan Line (Data & Signal Line):** Bus communication lines providing target power delivery and continuous sensor data feedback across Hub ports.
 
-| Connected Device | Port | Voltage ($V$) | Nominal Current | Peak Current | Communication / Power Protocol |
+| Connected Device | Port | Voltage | Nominal Current | Peak Current | Communication / Power Protocol |
 | :--- | :---: | :---: | :---: | :---: | :--- |
 | **SPIKE Prime Hub** | Internal | 7.3V | ~100 mA (Idle) | — | Main Controller & Power Bus |
 | **Color Sensor** | Port A | 5.0V | ~15 mA | — | Analog/Digital Sensor Data Bus |
@@ -401,8 +411,7 @@ The vehicle operates on a single centralized power source managed by the SPIKE P
 | **Reserved / Unused** | Port F | — | 0 mA | 0 mA | Available for Expansion |
 
 ### 9.3 Power Consumption & Battery Management
-* **Total Battery Capacity:** 7.3V / 2100 mAh Rechargeable Li-ion Battery.
-* **Maximum Peak Current Draw:** ~3.0 A (under simultaneous peak steering, maximum drive acceleration, and active AI vision processing).
-* **Battery Safety & Stability:** Power delivery is regulated internally by the SPIKE Hub to prevent voltage sag from degrading sensor reading accuracy or causing micro-controller reset loops during high-torque motor maneuvers.
 
----
+* **Total Battery Capacity:** 7.3V / 2100 mAh Rechargeable Li-ion Battery.
+* **Maximum Peak Current Draw:** ~3.0 A (calculated under simultaneous peak steering, maximum drive acceleration, and active AI vision processing).
+* **Battery Safety & Stability:** Power delivery is regulated internally by the SPIKE Hub to prevent voltage sag from degrading sensor reading accuracy or causing micro-controller reset loops during high-torque motor maneuvers.
