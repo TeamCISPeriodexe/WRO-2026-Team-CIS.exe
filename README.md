@@ -316,7 +316,6 @@ The core navigation logic relies on a Finite State Machine with defined priority
 | **5 (Lowest)** | `STATE_CRUISE` | Default state (Clear path ahead). | Executes **Gyro-Assisted Straight Control** ($K_p = 0.8$) at baseline speed ($15\%$). |
 
 ---
-
 ### 8.3 Gyro-Assisted Straight Line Control (Proportional Feedback)
 To compensate for physical chassis pull, weight imbalance, and surface friction variations, the vehicle continuously adjusts its steering angle using proportional feedback from the Hub's built-in 6-axis IMU.
 
@@ -349,9 +348,6 @@ The DFRobot HuskyLens communicates via serial UART on Port E at a baud rate of $
 
 ---
 
-### 8.5 Dynamic Speed & Steering Management
-
-```python
 # Pseudo-structure of the dynamic steering and motor control execution
 def update_vehicle_motion(current_state, gyro_error):
     if current_state == STATE_CRUISE:
