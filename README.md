@@ -14,6 +14,12 @@
 
 ## 1. Team Introduction
 
+<p align="center">
+  <img src="photos/T-photos/83f48a40-ead7-4f77-a99c-92bfadc95462.jpg" width="65%" alt="Team CIS.exe Members" />
+  <br>
+  <sub><b>Figure 1.1:</b> Team CIS.exe Members</sub>
+</p>
+
 ### 1.1 Team Members
 
 * **Thanarat Chansamak**
