@@ -304,18 +304,26 @@ The software logic is developed in **MicroPython** for the LEGO SPIKE Prime envi
 
 ---
 
+## 8. Software Architecture & Control Algorithms
+
+### 8.1 Software Architecture Overview
+The vehicle software is developed in **MicroPython** operating directly on the SPIKE Prime Hub. To achieve deterministic, real-time responsive behavior without latency spikes, the system relies on a modular **Finite State Machine (FSM)** architecture coupled with non-blocking sensor execution polling.
+
+---
+
 ### 8.2 Finite State Machine (FSM) State Transitions
 The core navigation logic relies on a Finite State Machine with defined priority levels to resolve conflicting sensor inputs:
 
 | Priority | FSM State | Trigger Condition | System Action & Motion Behavior |
 | :---: | :--- | :--- | :--- |
 | **1 (Highest)** | `STATE_PARK` | Lap count reaches limit (`lap_count >= 3`) AND finish line detected. | Applies active motor braking, centers steering, and halts execution loops. |
-| **2** | `STATE_CORNERING` | Ground Color Sensor reads `ORANGE` line. | Overrides straight driving, applies maximum steering angle, reduces drive speed to $12\%$. |
+| **2** | `STATE_CORNERING` | Ground Color Sensor reads `ORANGE` line. | Overrides straight driving, applies maximum steering angle, reduces drive speed to 12%. |
 | **3** | `STATE_RECOVERY` | Ground Color Sensor reads `GREEN` line (Track Boundary). | Executes emergency steering deflection to force the vehicle back into lane boundaries. |
-| **4** | `STATE_AVOID` | Distance Sensor reads $\le 35.0\text{ cm}$ AND HuskyLens detects target ID. | **ID 1 (Green):** Steering turns MAX LEFT.<br>**ID 2 (Red):** Steering turns MAX RIGHT.<br>Drive speed scales down to $11\%$. |
-| **5 (Lowest)** | `STATE_CRUISE` | Default state (Clear path ahead). | Executes **Gyro-Assisted Straight Control** ($K_p = 0.8$) at baseline speed ($15\%$). |
+| **4** | `STATE_AVOID` | Distance Sensor reads $\le 35.0\text{ cm}$ AND HuskyLens detects target ID. | **ID 1 (Green):** Steering turns MAX LEFT.<br>**ID 2 (Red):** Steering turns MAX RIGHT.<br>Drive speed scales down to 11%. |
+| **5 (Lowest)** | `STATE_CRUISE` | Default state (Clear path ahead). | Executes **Gyro-Assisted Straight Control** ($K_p = 0.8$) at baseline speed (15%). |
 
 ---
+
 ### 8.3 Gyro-Assisted Straight Line Control (Proportional Feedback)
 To compensate for physical chassis pull, weight imbalance, and surface friction variations, the vehicle continuously adjusts its steering angle using proportional feedback from the Hub's built-in 6-axis IMU.
 
@@ -334,42 +342,6 @@ The calculated correction angle is added directly to the calibrated zero-steerin
 
 ```text
 Steering Angle = Clamp(CENTER_POS + u(t), RIGHT_MAX, LEFT_MAX)
----
-
-### 8.4 Non-Blocking HuskyLens Serial Communication
-The DFRobot HuskyLens communicates via serial UART on Port E at a baud rate of $115,200\text{ bps}$. To avoid lagging the main control loop during vision processing, data packets are parsed via a custom buffer decoder:
-
-1. **Header Synchronization:** Scans the incoming byte stream for the double header frame `0x55` `0xAA`.
-2. **Payload Extraction:** Reads packet length and payload bytes to verify data integrity using CRC/checksum verification.
-3. **Target Selection:** Filters detected bounding boxes to extract only the dominant color block:
-   * **Color ID 1 (Green Pillar):** Sets navigation target flag to `AVOID_LEFT`.
-   * **Color ID 2 (Red Pillar):** Sets navigation target flag to `AVOID_RIGHT`.
-4. **Buffer Reset:** Clears residual serial input to prevent out-of-date frame processing.
-
----
-
-# Pseudo-structure of the dynamic steering and motor control execution
-def update_vehicle_motion(current_state, gyro_error):
-    if current_state == STATE_CRUISE:
-        drive_motor.set_power(15)  # Nominal cruise speed
-        steering_motor.track_target(CENTER_POS + (0.8 * gyro_error))
-        
-    elif current_state == STATE_AVOID:
-        drive_motor.set_power(11)  # Low speed for tight maneuvers
-        if target_id == GREEN_PILLAR_ID:
-            steering_motor.go_to_position(LEFT_MAX)
-        elif target_id == RED_PILLAR_ID:
-            steering_motor.go_to_position(RIGHT_MAX)
-            
-    elif current_state == STATE_CORNERING:
-        drive_motor.set_power(12)  # Medium speed for corner stability
-        steering_motor.go_to_position(CORNER_LOCK_ANGLE)
-        
-    elif current_state == STATE_PARK:
-        drive_motor.stop_hard()
-        steering_motor.go_to_position(CENTER_POS)
-
----
 
 ## Acknowledgments & Special Thanks
 
