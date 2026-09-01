@@ -356,15 +356,9 @@ The vehicle operates on a single centralized power source managed by the SPIKE P
 
 ---
 
-We would like to express our deepest gratitude to everyone who supported, guided, and inspired us throughout the development of this project:
+## Acknowledgments
 
-* 🤖 **World Robot Olympiad (WRO) Committee:** For organizing this challenging competition and providing an invaluable platform for young engineers to innovate and learn.
-* 👨‍🏫 **Mentors & Advisors:** For their endless patience, technical guidance, and constructive feedback during our hardware debugging and algorithm development.
-* 🏫 **School & Institution:** For providing the laboratory facilities, testing environments, and financial support for component procurement.
-* 🛠️ **Open-Source Community:** Special thanks to the developers of the **LEGO SPIKE Prime**, **HuskyLens (DFRobot)**, and Python micro-framework communities for their comprehensive documentation and open-source libraries.
-* 👥 **Team Members & Families:** For their dedication, hard work, late-night troubleshooting sessions, and unwavering encouragement.
-
----
+We would like to express our sincere gratitude to the World Robot Olympiad (WRO) committee, our advisors, school, open-source communities (LEGO SPIKE Prime, HuskyLens, and MicroPython), as well as our team members and families for their continuous support, guidance, and encouragement throughout this project.
 
 <p align="center">
   <b>Developed with ❤️ and passion by Team CIS</b><br>
