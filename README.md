@@ -105,22 +105,22 @@ To execute accurate line-tracking and obstacle avoidance, sensors are positioned
 ### 4.2 Vehicle Photos (6-Axis Views)
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/d59f58d2-8e83-41b2-ae9d-0a88f793d09e" width="45%" alt="Front View" />
-  <img src="https://github.com/user-attachments/assets/d3f52923-5123-4cff-af48-4de36add21e4" width="45%" alt="Back View" />
+  <img src="./other/img/Front%20View.jpg" width="45%" alt="Front View" />
+  <img src="./other/img/Back%20View.jpg" width="45%" alt="Back View" />
   <br>
   <sub><b>Figure 4.1:</b> Front View (Left) and Back View (Right)</sub>
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/8e3eb4c2-5f66-4709-9eac-5c9e77db2ac1" width="45%" alt="Left View" />
-  <img src="https://github.com/user-attachments/assets/bee6e1d1-aaa5-4cb8-8be9-263e0ac518bd" width="45%" alt="Right View" />
+  <img src="./other/img/Left%20Side%20View.jpg" width="45%" alt="Left Side View" />
+  <img src="./other/img/Right%20Side%20View.jpg" width="45%" alt="Right Side View" />
   <br>
   <sub><b>Figure 4.2:</b> Left Side View (Left) and Right Side View (Right)</sub>
 </p>
 
 <p align="center">
-  <img src="URL_ใหม่ของรูป_Top_View" width="45%" alt="Top View" />
-  <img src="URL_ใหม่ของรูป_Bottom_View" width="45%" alt="Bottom View" />
+  <img src="./other/img/Top%20View.jpg" width="45%" alt="Top View" />
+  <img src="./other/img/Bottom%20View.jpg" width="45%" alt="Bottom View" />
   <br>
   <sub><b>Figure 4.3:</b> Top View (Left) and Bottom View (Right)</sub>
 </p>
