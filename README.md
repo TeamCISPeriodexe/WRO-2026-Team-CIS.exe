@@ -372,3 +372,40 @@ def update_vehicle_motion(current_state, gyro_error):
     elif current_state == STATE_PARK:
         drive_motor.stop_hard()
         steering_motor.go_to_position(CENTER_POS)
+
+---
+
+
+## 9. Electrical & Power Management Architecture
+
+### 9.1 Power Distribution & Signal Schematic
+
+<p align="center">
+  <img src="./other/img/Electrical_Block_Diagram.jpg" width="85%" alt="Electrical Block Diagram" />
+  <br>
+  <sub><b>Figure 9.1:</b> Electrical Block Diagram, Power Distribution, and Port Allocation Schematic</sub>
+</p>
+
+### 9.2 Wiring & System Power Breakdown
+
+The vehicle operates on a single centralized power source managed by the SPIKE Prime Hub. Power line distribution and data/signal channels are categorized as follows:
+
+* 🔴 **Red Line (Main Power Supply):** 7.3V regulated power rail supplied from the internal Li-ion battery to the SPIKE Prime Hub.
+* 🔵 **Cyan Line (Data & Signal Line):** Bus communication lines providing power delivery and sensor data feedback across Hub ports.
+
+| Connected Device | Port | Voltage ($V$) | Nominal Current | Peak Current | Communication / Power Protocol |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **SPIKE Prime Hub** | Internal | 7.3V | ~100 mA (Idle) | — | Main Controller & Power Bus |
+| **Color Sensor** | Port A | 5.0V | ~15 mA | — | Analog/Digital Sensor Data Bus |
+| **Drive Angular Motor** | Port B | 7.2V | 300 mA | 1.2 A | Bidirectional PWM & Quadrature Encoder |
+| **Distance Sensor** | Port C | 5.0V | ~30 mA | — | Ultrasonic Signal Data Bus |
+| **Steering Angular Motor** | Port D | 7.2V | 300 mA | 1.2 A | Bidirectional PWM & Quadrature Encoder |
+| **HuskyLens AI Camera** | Port E | 5.0V | 320 mA | 400 mA | UART / I2C Serial Data (Powered via Port E) |
+| **Reserved / Unused** | Port F | — | 0 mA | 0 mA | Available for Expansion |
+
+### 9.3 Power Consumption & Battery Management
+* **Total Battery Capacity:** 7.3V / 2100 mAh Rechargeable Li-ion Battery.
+* **Maximum Peak Current Draw:** ~3.0 A (under simultaneous peak steering, maximum drive acceleration, and active AI vision processing).
+* **Battery Safety & Stability:** Power delivery is regulated internally by the SPIKE Hub to prevent voltage sag from degrading sensor reading accuracy or causing micro-controller reset loops during high-torque motor maneuvers.
+
+---
