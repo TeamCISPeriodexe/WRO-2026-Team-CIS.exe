@@ -304,46 +304,51 @@ The software logic is developed in **MicroPython** for the LEGO SPIKE Prime envi
 
 ---
 
-## 8. Software Architecture & Control Algorithms
+## 8. Electrical & Power Management Architecture
 
-### 8.1 Software Architecture Overview
-The vehicle software is developed in **MicroPython** operating directly on the SPIKE Prime Hub. To achieve deterministic, real-time responsive behavior without latency spikes, the system relies on a modular **Finite State Machine (FSM)** architecture coupled with non-blocking sensor execution polling.
+### 8.1 Power Distribution & Signal Schematic
+
+<p align="center">
+  <img src="src/Electrical_Block_Diagram/Electrical_Block_Diagram.jpg" width="85%" alt="Electrical Block Diagram" />
+  <br>
+  <sub><b>Figure 8.1:</b> Electrical Block Diagram, Power Distribution, and Port Allocation Schematic</sub>
+</p>
+
+### 8.2 Wiring & System Power Breakdown
+
+The vehicle operates on a single centralized power source managed by the SPIKE Prime Hub. Power distribution and signal communication lines are categorized as follows:
+
+* 🔴 **Red Line (Main Power Supply):** 7.3V regulated power rail supplied directly from the internal Li-ion battery to the SPIKE Prime Hub.
+* 🔵 **Cyan Line (Data & Signal Line):** Bus communication lines providing target power delivery and continuous sensor data feedback across Hub ports.
+
+| Connected Device | Port | Voltage | Nominal Current | Peak Current | Communication / Power Protocol |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **SPIKE Prime Hub** | Internal | 7.3V | ~100 mA (Idle) | — | Main Controller & Power Bus |
+| **Color Sensor** | Port A | 5.0V | ~15 mA | — | Analog/Digital Sensor Data Bus |
+| **Drive Angular Motor** | Port B | 7.2V | 300 mA | 1.2 A | Bidirectional PWM & Quadrature Encoder |
+| **Distance Sensor** | Port C | 5.0V | ~30 mA | — | Ultrasonic Signal Data Bus |
+| **Steering Angular Motor** | Port D | 7.2V | 300 mA | 1.2 A | Bidirectional PWM & Quadrature Encoder |
+| **HuskyLens AI Camera** | Port E | 5.0V | 320 mA | 400 mA | UART / I2C Serial Data (Powered via Port E) |
+| **Reserved / Unused** | Port F | — | 0 mA | 0 mA | Available for Expansion |
+
+### 8.3 Power Consumption & Battery Management
+
+* **Total Battery Capacity:** 7.3V / 2100 mAh Rechargeable Li-ion Battery.
+* **Maximum Peak Current Draw:** ~3.0 A (calculated under simultaneous peak steering, maximum drive acceleration, and active AI vision processing).
+* **Battery Safety & Stability:** Power delivery is regulated internally by the SPIKE Hub to prevent voltage sag from degrading sensor reading accuracy or causing micro-controller reset loops during high-torque motor maneuvers.
 
 ---
 
-### 8.2 Finite State Machine (FSM) State Transitions
-The core navigation logic relies on a Finite State Machine with defined priority levels to resolve conflicting sensor inputs:
+## 9. Testing & Calibration Log
 
-| Priority | FSM State | Trigger Condition | System Action & Motion Behavior |
+| Iteration | Identified Issue | Root Cause | Engineering Solution |
 | :---: | :--- | :--- | :--- |
-| **1 (Highest)** | `STATE_PARK` | Lap count reaches limit (`lap_count >= 3`) AND finish line detected. | Applies active motor braking, centers steering, and halts execution loops. |
-| **2** | `STATE_CORNERING` | Ground Color Sensor reads `ORANGE` line. | Overrides straight driving, applies maximum steering angle, reduces drive speed to 12%. |
-| **3** | `STATE_RECOVERY` | Ground Color Sensor reads `GREEN` line (Track Boundary). | Executes emergency steering deflection to force the vehicle back into lane boundaries. |
-| **4** | `STATE_AVOID` | Distance Sensor reads $\le 35.0\text{ cm}$ AND HuskyLens detects target ID. | **ID 1 (Green):** Steering turns MAX LEFT.<br>**ID 2 (Red):** Steering turns MAX RIGHT.<br>Drive speed scales down to 11%. |
-| **5 (Lowest)** | `STATE_CRUISE` | Default state (Clear path ahead). | Executes **Gyro-Assisted Straight Control** ($K_p = 0.8$) at baseline speed (15%). |
+| **v1.0** | Vehicle drifted off-center during straight runs. | Motor speed variances between individual ports. | Implemented Gyro Yaw feedback loop with dynamic proportional steering correction ($K_p = 0.8$). |
+| **v1.1** | HuskyLens frame drops caused delayed obstacle responses. | Blocking serial read execution inside the main control loop. | Rewrote the UART driver into a non-blocking stream buffer parser. |
+| **v1.2** | Color Sensor missed Orange turn markers under bright ambient lighting. | Optical reflection interference from overhead room lights. | Designed a 3D-printed optical light shield and lowered sensor ground clearance to 5 mm. |
+| **v1.3** | Rear wheel slippage during sharp corner exits. | Sudden speed transitions during FSM state changes. | Implemented dynamic speed scaling (Cruise: 15%, Avoid: 11%, Corner: 12%) for smooth torque delivery. |
 
 ---
-
-### 8.3 Gyro-Assisted Straight Line Control (Proportional Feedback)
-To compensate for physical chassis pull, weight imbalance, and surface friction variations, the vehicle continuously adjusts its steering angle using proportional feedback from the Hub's built-in 6-axis IMU.
-
-#### 1. Error Calculation
-The orientation error $e(t)$ is defined as the difference between the desired target heading angle $\theta_{\text{target}}$ and the current yaw angle $\theta_{\text{current}}$ read by the gyro sensor:
-
-$$e(t) = \theta_{\text{target}} - \theta_{\text{current}}$$
-
-#### 2. Proportional Steering Correction
-The correction output $u(t)$ is calculated using a proportional gain ($K_p = 0.8$):
-
-$$u(t) = K_p \cdot e(t)$$
-
-#### 3. Actuator Command Mapping
-The calculated correction angle is added directly to the calibrated zero-steering position (Center = 2°), constrained within physical hardware limits:
-
-```text
-Steering Angle = Clamp(CENTER_POS + u(t), RIGHT_MAX, LEFT_MAX)
-
-## Acknowledgments & Special Thanks
 
 We would like to express our deepest gratitude to everyone who supported, guided, and inspired us throughout the development of this project:
 
