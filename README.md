@@ -21,14 +21,14 @@
 </p>
 
 ### 1.1 Team Members
-
-* **Thanarat Chansamak**
+ 
+* **Sorawit Namwongsa**
   * **Role:** Hardware Engineer
   * **Responsibilities:** Mechanical Chassis Design, Steering Mechanism, 3D Component Printing, and Electronics Wiring.
-* **Sorawit Namwongsa**
-  * **Role:** Software Engineer
-  * **Responsibilities:** MicroPython Programming, HuskyLens AI Vision System, Sensor Calibration, and Navigation Algorithms.
 * **Puttipong Kittichotthaworn**
+  * **Role:** Hardware Engineer
+  * **Responsibilities:** Mechanical Chassis Design, Steering Mechanism, 3D Component Printing, and Electronics Wiring.
+* **Thanarat Chansamak**
   * **Role:** Software Engineer
   * **Responsibilities:** MicroPython Programming, HuskyLens AI Vision System, Sensor Calibration, and Navigation Algorithms.
 
