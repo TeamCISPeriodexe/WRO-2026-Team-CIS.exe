@@ -380,7 +380,8 @@ def update_vehicle_motion(current_state, gyro_error):
 
 ### 9.1 Power Distribution & Signal Schematic
 
-![Electrical Block Diagram](src/Electrical_Block_Diagram/Electrical_Block_Diagram.jpg)
+<img width="1251" height="916" alt="Electrical_Block_Diagram" src="https://github.com/user-attachments/assets/fcbe60fd-92b6-4a8d-8766-41902d9d7205" />
+
 
 ### 9.2 Wiring & System Power Breakdown
 
