@@ -119,12 +119,11 @@ To execute accurate line-tracking and obstacle avoidance, sensors are positioned
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/3ddca024-9a70-4c44-98d2-fabb07cd4666" width="45%" alt="Top View" />
-  <img src="https://github.com/user-attachments/assets/0b0ee73c-b49a-4667-bd77-9e77fc4c64da" width="45%" alt="Bottom View" />
+  <img src="URL_ใหม่ของรูป_Top_View" width="45%" alt="Top View" />
+  <img src="URL_ใหม่ของรูป_Bottom_View" width="45%" alt="Bottom View" />
   <br>
   <sub><b>Figure 4.3:</b> Top View (Left) and Bottom View (Right)</sub>
 </p>
-
 ---
 
 ## 5. Electronics & Sensors
